@@ -22,7 +22,7 @@ bool plugin_x64_init(CwAPI3D::ControllerFactory* aFactory) {
     aFactory->getUtilityController()->printMessage(L"COM failed =(", 0, 0);
     return EXIT_FAILURE;
   }
-
+  // UUID of a COM interface
   ICalculatorPtr pIcalc(__uuidof(CCalculator));
 
   long lResult{0};
@@ -32,8 +32,14 @@ bool plugin_x64_init(CwAPI3D::ControllerFactory* aFactory) {
   wprintf(L"the result is %d\n", lResult);
 
   auto lFormatted = std::format(L"Result is {}", lResult);
-
   aFactory->getUtilityController()->printToConsole(lFormatted.data());
+
+  IGreeterPtr pIGreet(__uuidof(CGreeter));
+
+  BSTR lWString;
+  pIGreet->Greet(&lWString);
+
+  aFactory->getUtilityController()->printToConsole(lWString);
 
   CoUninitialize();
 
