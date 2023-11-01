@@ -1,13 +1,13 @@
 #include <corecrt_wstdio.h>
 #include <objbase.h>
 #include <tchar.h>
-
+// https://www.youtube.com/watch?v=M4F6Z4-NAos
 #import "../ComSharp/bin/Release/ComSharp.tlb" raw_interfaces_only
 
 using namespace ComSharp;
 
-int _tmain(int argc, _TCHAR* argv[]) {
-  HRESULT hr = CoInitialize(NULL);
+int main() {
+  HRESULT hr = CoInitialize(nullptr);
 
   ICalculatorPtr pIcalc(__uuidof(CCalculator));
 
