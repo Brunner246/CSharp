@@ -18,6 +18,10 @@ bool plugin_x64_init(CwAPI3D::ControllerFactory* aFactory) {
   aFactory->getUtilityController()->printToConsole(L"Hello World Plugin");
 
   HRESULT hr = CoInitialize(nullptr);
+  if (FAILED(hr)) {
+    aFactory->getUtilityController()->printMessage(L"COM failed =(", 0, 0);
+    return EXIT_FAILURE;
+  }
 
   ICalculatorPtr pIcalc(__uuidof(CCalculator));
 
