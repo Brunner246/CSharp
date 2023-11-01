@@ -1,20 +1,21 @@
 #include <corecrt_wstdio.h>
 #include <objbase.h>
+#include <tchar.h>
 
-#import "../ComSharp/bin/Release/ComSharp.tlb" named_guids
+#import "../ComSharp/bin/Release/ComSharp.tlb" raw_interfaces_only
 
-int main() {
-  CoInitialize(nullptr);
+using namespace ComSharp;
 
-  CSharp::IHelloWorldInterfacePtr pHelloWorld(
-      __uuidof(CSharp::HelloWorldClass));
+int _tmain(int argc, _TCHAR* argv[]) {
+  HRESULT hr = CoInitialize(NULL);
 
-  BSTR bstrGreeting;
-  pHelloWorld->GetGreeting(&bstrGreeting);
+  ICalculatorPtr pIcalc(__uuidof(CCalculator));
 
-  wprintf(L"%s\n", bstrGreeting);
+  long lResult{0};
 
-  SysFreeString(bstrGreeting);
+  pIcalc->Add(1, 2, &lResult);
+
+  wprintf(L"the result is %d\n", lResult);
 
   CoUninitialize();
 
